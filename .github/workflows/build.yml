@@ -39,7 +39,7 @@ jobs:
           fi
           freetype-config --libs
           make -j"$(nproc)"
-          ls -la *.nro
+          ls -la out/
 
       - name: 發佈測試版
         uses: softprops/action-gh-release@v2
@@ -48,4 +48,4 @@ jobs:
           name: 測試版 ${{ github.run_number }}
           prerelease: true
           files: |
-            *.nro
+            out/EdiZon.nro
