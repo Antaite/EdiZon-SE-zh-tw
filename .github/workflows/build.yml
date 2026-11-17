@@ -20,6 +20,11 @@ jobs:
           dkp-pacman -Syu --noconfirm --needed switch-freetype switch-curl switch-mbedtls switch-zlib switch-bzip2 switch-libpng switch-pkg-config || true
           ls /opt/devkitpro/portlibs/switch/bin || true
 
+      - name: 安裝舊版 libnx 3.3.0（EdiZon SE 使用舊的觸控與按鍵 API，libnx 4 以後已移除）
+        run: |
+          git clone --depth 1 --branch v3.3.0 https://github.com/switchbrew/libnx.git /tmp/libnx
+          make -C /tmp/libnx -j"$(nproc)" install
+
       - name: 編譯
         run: |
           export PATH=/opt/devkitpro/portlibs/switch/bin:$PATH
