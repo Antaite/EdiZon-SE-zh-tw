@@ -32,6 +32,12 @@ jobs:
       - name: 編譯
         run: |
           export PATH=/opt/devkitpro/portlibs/switch/bin:$PATH
+          # 新版 portlibs 沒有 freetype-config，Makefile 卻用它取得連結參數，補一個轉呼叫 pkg-config 的小腳本
+          if ! command -v freetype-config >/dev/null; then
+            printf '#!/bin/sh\nexec aarch64-none-elf-pkg-config "$@" freetype2\n' > /usr/local/bin/freetype-config
+            chmod +x /usr/local/bin/freetype-config
+          fi
+          freetype-config --libs
           make -j"$(nproc)"
           ls -la *.nro
 
