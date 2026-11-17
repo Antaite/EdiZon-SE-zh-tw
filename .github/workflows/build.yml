@@ -1,5 +1,5 @@
 # 自動編譯：用 devkitA64 編譯 EdiZon SE 繁中版，並發佈測試版方便下載
-# EdiZon SE 使用 libnx 4 之前的觸控與按鍵 API，所以固定用 2020 年 7 月的編譯環境（libnx 3.x）。
+# EdiZon SE 使用 libnx 4 之前的觸控與按鍵 API，所以固定用 2020 年 7 月的編譯環境，並在裡面安裝 libnx 3.3.0。
 # 這個舊映像太舊，跑不了 GitHub 的動作元件，所以只在編譯步驟用 docker run 進入映像。
 name: 編譯
 
@@ -20,7 +20,10 @@ jobs:
         run: |
           docker run --rm -v "$PWD":/src -w /src devkitpro/devkita64:20200730 bash -c '
             export PATH=/opt/devkitpro/portlibs/switch/bin:$PATH
-            grep -h "LIBNX_MAJOR\|LIBNX_MINOR" /opt/devkitpro/libnx/include/switch/*.h 2>/dev/null | head -3 || true
+            set -e
+            # 映像內建的 libnx 太舊（沒有 NX_PACKED），先升級到 3.3.0（最後一個還有舊觸控 API 的版本）
+            git clone -q --depth 1 --branch v3.3.0 https://github.com/switchbrew/libnx.git /tmp/libnx
+            make -C /tmp/libnx -j"$(nproc)" install > /tmp/libnx.log 2>&1 || (tail -40 /tmp/libnx.log; exit 1)
             make -j"$(nproc)"
           '
           ls -la *.nro
