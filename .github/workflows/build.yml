@@ -1,4 +1,6 @@
 # 自動編譯：用 devkitA64 編譯 EdiZon SE 繁中版，並發佈測試版方便下載
+# EdiZon SE 使用 libnx 4 之前的觸控與按鍵 API，所以固定用 2020 年 7 月的編譯環境（libnx 3.x）。
+# 這個舊映像太舊，跑不了 GitHub 的動作元件，所以只在編譯步驟用 docker run 進入映像。
 name: 編譯
 
 on:
@@ -11,20 +13,16 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # EdiZon SE 使用 libnx 4 之前的觸控與按鍵 API，所以固定用 2020 年 7 月的編譯環境（libnx 3.x）
-    container: devkitpro/devkita64:20200730
     steps:
       - uses: actions/checkout@v4
 
-      - name: 檢查編譯環境
+      - name: 編譯（devkitpro/devkita64:20200730）
         run: |
-          grep -m3 "LIBNX_M\|LIBNX_P" /opt/devkitpro/libnx/include/switch.h /opt/devkitpro/libnx/*.mk 2>/dev/null || true
-          ls /opt/devkitpro/portlibs/switch/lib | head -50
-
-      - name: 編譯
-        run: |
-          export PATH=/opt/devkitpro/portlibs/switch/bin:$PATH
-          make -j"$(nproc)"
+          docker run --rm -v "$PWD":/src -w /src devkitpro/devkita64:20200730 bash -c '
+            export PATH=/opt/devkitpro/portlibs/switch/bin:$PATH
+            grep -h "LIBNX_MAJOR\|LIBNX_MINOR" /opt/devkitpro/libnx/include/switch/*.h 2>/dev/null | head -3 || true
+            make -j"$(nproc)"
+          '
           ls -la *.nro
 
       - name: 發佈測試版
