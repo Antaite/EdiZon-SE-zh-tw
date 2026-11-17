@@ -1,6 +1,6 @@
 # 自動編譯：用 devkitA64 編譯 EdiZon SE 繁中版，並發佈測試版方便下載
-# EdiZon SE 使用 libnx 4 之前的觸控與按鍵 API，所以固定用 2020 年 7 月的編譯環境，並在裡面安裝 libnx 3.3.0。
-# 這個舊映像太舊，跑不了 GitHub 的動作元件，所以只在編譯步驟用 docker run 進入映像。
+# EdiZon SE 用的是作者 tomvita 自己維護的 libnx 分支（保留舊的觸控與按鍵 API，同時跟進新韌體支援），
+# 所以編譯前先把它安裝進去，取代官方 libnx。
 name: 編譯
 
 on:
@@ -10,22 +10,29 @@ on:
 permissions:
   contents: write
 
+env:
+  TOMVITA_LIBNX_COMMIT: 50396eeb52cbb3feddbbfdc6482f4b704a1f90b3   # tomvita/libnx master，2026-05-05
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: devkitpro/devkita64:latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: 編譯（devkitpro/devkita64:20200730）
+      - name: 安裝 tomvita 版 libnx
         run: |
-          docker run --rm -v "$PWD":/src -w /src devkitpro/devkita64:20200730 bash -c '
-            export PATH=/opt/devkitpro/portlibs/switch/bin:$PATH
-            set -e
-            # 映像內建的 libnx 太舊（沒有 NX_PACKED），先升級到 3.3.0（最後一個還有舊觸控 API 的版本）
-            git clone -q --depth 1 --branch v3.3.0 https://github.com/switchbrew/libnx.git /tmp/libnx
-            make -C /tmp/libnx -j"$(nproc)" install > /tmp/libnx.log 2>&1 || (tail -40 /tmp/libnx.log; exit 1)
-            make -j"$(nproc)"
-          '
+          git init -q /tmp/libnx
+          cd /tmp/libnx
+          git remote add origin https://github.com/tomvita/libnx.git
+          git fetch -q --depth 1 origin "$TOMVITA_LIBNX_COMMIT"
+          git checkout -q FETCH_HEAD
+          make -j"$(nproc)" install > /tmp/libnx.log 2>&1 || (tail -40 /tmp/libnx.log; exit 1)
+
+      - name: 編譯
+        run: |
+          export PATH=/opt/devkitpro/portlibs/switch/bin:$PATH
+          make -j"$(nproc)"
           ls -la *.nro
 
       - name: 發佈測試版
