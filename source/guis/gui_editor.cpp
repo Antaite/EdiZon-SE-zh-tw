@@ -133,22 +133,22 @@ void GuiEditor::draw() {
     Gui::drawTextAligned(font20, (Gui::g_framebuffer_width / 2), 50, m_textColor, Title::g_currTitle->getTitleAuthor().c_str(), ALIGNED_CENTER);
     Gui::drawTextAligned(font20, (Gui::g_framebuffer_width / 2), 80, m_textColor, ssTitleId.str().c_str(), ALIGNED_CENTER);
 
-    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 50, currTheme.textColor, "\uE0E6 Next game     \uE0E7 Next user     \uE0E2 Backup     \uE0E3 Restore     \uE0E1 Back", ALIGNED_RIGHT);
+    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 50, currTheme.textColor, "\uE0E6 下一個遊戲     \uE0E7 下一個使用者     \uE0E2 備份     \uE0E3 還原     \uE0E1 返回", ALIGNED_RIGHT);
     switch (m_configFileResult) {
       case 0:
-        Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "Press \uE0F0 to load and edit your save file.", ALIGNED_CENTER);
+        Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "按 \uE0F0 載入並編輯存檔。", ALIGNED_CENTER);
         break;
       case 1:
-        Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "No config for this game was found. Editing is disabled.", ALIGNED_CENTER);
+        Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "找不到這個遊戲的設定檔，無法編輯。", ALIGNED_CENTER);
         break;
       case 2:
-        Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "Syntax error in config file! Editing is disabled.", ALIGNED_CENTER);
+        Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "設定檔語法錯誤！無法編輯。", ALIGNED_CENTER);
         break;
       case 3:
-        Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "The config isn't compatible with your game's version. Editing is disabled.", ALIGNED_CENTER);
+        Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "設定檔和遊戲版本不相容，無法編輯。", ALIGNED_CENTER);
         break;
       case 4:
-        Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "The config redirected more than 5 times. Editing is disabled.", ALIGNED_CENTER);
+        Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "設定檔轉向超過 5 次，無法編輯。", ALIGNED_CENTER);
         break;
     }
 
@@ -158,10 +158,10 @@ void GuiEditor::draw() {
     ssMultiplier << Widget::g_stepSizeMultiplier;
 
     if (EditorConfigParser::g_currConfigAuthor != "")
-      Gui::drawTextAligned(font20, (Gui::g_framebuffer_width / 2), 80, m_textColor, std::string("Config created by " + EditorConfigParser::g_currConfigAuthor).c_str(), ALIGNED_CENTER);
+      Gui::drawTextAligned(font20, (Gui::g_framebuffer_width / 2), 80, m_textColor, std::string("設定檔作者：" + EditorConfigParser::g_currConfigAuthor).c_str(), ALIGNED_CENTER);
     
     Gui::drawTextAligned(font20, 50, Gui::g_framebuffer_height - 50, currTheme.textColor, ssMultiplier.str().c_str(), ALIGNED_LEFT);
-    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 50, currTheme.textColor, "\uE105 Increase multiplier     \uE0E2 Apply changes     \uE0E1 Cancel     \uE0E0 OK", ALIGNED_RIGHT);
+    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 50, currTheme.textColor, "\uE105 增加倍率     \uE0E2 套用變更     \uE0E1 取消     \uE0E0 確定", ALIGNED_RIGHT);
   }
 
   if (m_widgets[Widget::g_selectedCategory].size() > WIDGETS_PER_PAGE) {
@@ -205,7 +205,7 @@ void GuiEditor::updateBackupList() {
 
       metadataUsername = GuiEditor::readMetaDataUsername(path.str() + "/" + std::string(ent_timestamp->d_name) + "/edizon_save_metadata.json");
       if (metadataUsername.empty())
-        metadataUsername = "By an unknown user [/restore]";
+        metadataUsername = "未知使用者 [/restore]";
       else
         metadataUsername = "By " + metadataUsername + " [/restore]";
 
@@ -231,9 +231,9 @@ void GuiEditor::updateBackupList() {
             metadataUsername = GuiEditor::readMetaDataUsername(path.str() + "/edizon_save_metadata.json");
 
             if (metadataUsername.empty())
-              metadataUsername = "By an unknown user [Batch]";
+              metadataUsername = "未知使用者 [批次]";
             else
-              metadataUsername = "By " + metadataUsername + " [Batch]";
+              metadataUsername = "By " + metadataUsername + " [批次]";
 
             backups.push_back(std::string(ent_timestamp->d_name) +  ", " + metadataUsername);
             backups.push_back(path.str());
@@ -258,7 +258,7 @@ void GuiEditor::updateBackupList() {
 
       metadataUsername = GuiEditor::readMetaDataUsername(path.str() + "/" + std::string(ent_timestamp->d_name) + "/edizon_save_metadata.json");
       if (metadataUsername.empty())
-        metadataUsername = "By an unknown user";
+        metadataUsername = "未知使用者";
       else
         metadataUsername = "By " + metadataUsername;
 
@@ -362,7 +362,7 @@ void uploadBackup(std::string path, std::string fileName) {
   UploadManager um;
   static std::stringstream hashStr;
 
-  (new MessageBox("Uploading savefile...\n \nPress \uE0E1 to cancel.", MessageBox::NONE))->show();
+  (new MessageBox("正在上傳存檔…\n \n按 \uE0E1 取消。", MessageBox::NONE))->show();
   requestDraw();
 
   SetSysSerialNumber serial;
@@ -389,7 +389,7 @@ void uploadBackup(std::string path, std::string fileName) {
   if (retCode.length() == 6) {
     (new MessageBox("", MessageBox::OKAY))->setCustomDraw([&](Gui *gui, s16 x, s16 y){
       u32 w, h;
-      gui->drawTextAligned(font20, Gui::g_framebuffer_width / 2, Gui::g_framebuffer_height / 2 - 100, currTheme.textColor, "Upload finished!\n \n Visit edizon.werwolv.net and enter this code\n to get your link!", ALIGNED_CENTER);
+      gui->drawTextAligned(font20, Gui::g_framebuffer_width / 2, Gui::g_framebuffer_height / 2 - 100, currTheme.textColor, "上傳完成！\n \n 請到 edizon.werwolv.net 輸入這組代碼\n 取得下載連結！", ALIGNED_CENTER);
 
       gui->getTextDimensions(font24, retCode.c_str(), &w, &h);
 
@@ -398,7 +398,7 @@ void uploadBackup(std::string path, std::string fileName) {
     })->show();
   } 
   else
-    (new MessageBox("Upload failed!\n \n" + retCode, MessageBox::OKAY))->show(); 
+    (new MessageBox("上傳失敗！\n \n" + retCode, MessageBox::OKAY))->show(); 
 }
 
 void GuiEditor::onInput(u32 kdown) {
@@ -418,7 +418,7 @@ if (GuiEditor::g_currSaveFileName == "") { /* No savefile loaded */
     for (auto saveFile : m_saveFiles)
       saveFileNames.push_back(saveFile.fileName);
 
-    (new ListSelector("Edit save file", "\uE0E0  Select      \uE0E1  Back", saveFileNames))->setInputAction([&](u32 k, u16 selectedItem) {
+    (new ListSelector("編輯存檔", "\uE0E0  選擇      \uE0E1  返回", saveFileNames))->setInputAction([&](u32 k, u16 selectedItem) {
       if (k & KEY_A) {
         if (m_saveFiles.size() != 0) {
           size_t length;
@@ -427,7 +427,7 @@ if (GuiEditor::g_currSaveFileName == "") { /* No savefile loaded */
           Widget::g_selectedRow = CATEGORIES;
           Widget::g_categoryYOffset = 0;
           
-          (new MessageBox("Starting up editor...", MessageBox::NONE))->show();
+          (new MessageBox("正在啟動編輯器…", MessageBox::NONE))->show();
           requestDraw();
           Gui::g_currMessageBox->hide();
 
@@ -453,14 +453,14 @@ if (GuiEditor::g_currSaveFileName == "") { /* No savefile loaded */
 
                 m_widgets.clear();
                 Widget::g_categories.clear();
-                (new Snackbar("Failed to start script interpreter! Syntax error or script not found."))->show();
+                (new Snackbar("無法啟動腳本直譯器！語法錯誤或找不到腳本。"))->show();
 
                 Gui::g_currListSelector->hide();
                 return;
               }
             }
             else {
-              (new Snackbar("Failed to load save file! Is it empty?"))->show();
+              (new Snackbar("無法載入存檔！存檔是空的嗎？"))->show();
               GuiEditor::g_currSaveFile.clear();
               GuiEditor::g_currSaveFileName = "";
 
@@ -487,14 +487,14 @@ if (GuiEditor::g_currSaveFileName == "") { /* No savefile loaded */
       static char backupName[65];
       std::stringstream initialText;
       initialText << std::put_time(std::gmtime(&t), "%Y%m%d_%H%M%S");
-      if(!Gui::requestKeyboardInput("Backup name", "Please enter a name for the backup to be saved under.", initialText.str(), SwkbdType_QWERTY, backupName, 32))
+      if(!Gui::requestKeyboardInput("備份名稱", "請輸入這份備份的名稱。", initialText.str(), SwkbdType_QWERTY, backupName, 32))
         return;
       
-      (new MessageBox("Extracting save file.\n \nThis may take a while...", MessageBox::NONE))->show();
+      (new MessageBox("正在解出存檔。\n \n可能需要一些時間…", MessageBox::NONE))->show();
       requestDraw();
 
       if(!(res = backupSave(Title::g_currTitle->getTitleID(), Account::g_currAccount->getUserID(), false, backupName))) {
-        (new MessageBox("Successfully created backup!\n \n Would you like to upload it to anonfile.com?", MessageBox::YES_NO))->setSelectionAction([&](u8 selection) {
+        (new MessageBox("備份完成！\n \n 要上傳到 anonfile.com 嗎？", MessageBox::YES_NO))->setSelectionAction([&](u8 selection) {
           if (selection) {
             std::stringstream backupPath;
             backupPath << EDIZON_DIR "/saves/" << std::uppercase << std::setfill('0') 
@@ -510,9 +510,9 @@ if (GuiEditor::g_currSaveFileName == "") { /* No savefile loaded */
       else {
         Gui::g_currMessageBox->hide();
         switch(res) {
-          case 1: (new Snackbar("Failed to mount save file!"))->show(); break;
-          case 2: (new Snackbar("A backup with this name already exists!"))->show(); break;
-          case 3: (new Snackbar("Failed to create backup!"))->show(); break;
+          case 1: (new Snackbar("無法掛載存檔！"))->show(); break;
+          case 2: (new Snackbar("已經有同名的備份！"))->show(); break;
+          case 3: (new Snackbar("備份失敗！"))->show(); break;
         }
       }
     }
@@ -520,16 +520,16 @@ if (GuiEditor::g_currSaveFileName == "") { /* No savefile loaded */
     if (kdown & KEY_Y) {
       updateBackupList();
 
-      (new ListSelector("Restore Backup", "\uE0F0  Upload     \uE0E0  Restore     \uE0E2  Delete     \uE0E1  Back", m_backupTitles))->setInputAction([&](u32 k, u16 selectedItem){
+      (new ListSelector("還原備份", "\uE0F0  上傳     \uE0E0  還原     \uE0E2  刪除     \uE0E1  返回", m_backupTitles))->setInputAction([&](u32 k, u16 selectedItem){
         if (k & KEY_A) {
           if (m_backupTitles.size() != 0) {
-              (new MessageBox("Are you sure you want to inject this backup?", MessageBox::YES_NO))->setSelectionAction([&](s8 selection) {
+              (new MessageBox("確定要寫入這份備份嗎？", MessageBox::YES_NO))->setSelectionAction([&](s8 selection) {
                 if (selection) {
                   s16 res;
 
                   if(!(res = restoreSave(Title::g_currTitle->getTitleID(), Account::g_currAccount->getUserID(), m_backupPaths[Gui::g_currListSelector->selectedItem].c_str())))
-                    (new Snackbar("Successfully restored backup!"))->show();
-                  else (new Snackbar("An error occured while restoring the backup! Error " + std::to_string(res)))->show();
+                    (new Snackbar("還原完成！"))->show();
+                  else (new Snackbar("還原備份時發生錯誤！錯誤 " + std::to_string(res)))->show();
 
                   Gui::g_currListSelector->hide();
                   Gui::g_currMessageBox->hide();
@@ -631,7 +631,7 @@ if (GuiEditor::g_currSaveFileName == "") { /* No savefile loaded */
 
     } else { /* Categories row */
       if (kdown & KEY_B) {
-        (new MessageBox("Are you sure you want to discard your changes?", MessageBox::YES_NO))->setSelectionAction([&](s8 selection) {
+        (new MessageBox("確定要放棄變更嗎？", MessageBox::YES_NO))->setSelectionAction([&](s8 selection) {
           if (selection) {
             m_interpreter->deinitialize();
 
@@ -675,19 +675,19 @@ if (GuiEditor::g_currSaveFileName == "") { /* No savefile loaded */
     }
     /* Categories and widgets row */
     if (kdown & KEY_X) {
-      (new MessageBox(EditorConfigParser::g_betaTitles[Title::g_currTitle->getTitleID()] ? "Do you want to apply these changes? \n Make sure you have a working backup of your \n save data as this config is still in beta!" :"Do you want to apply these changes?", MessageBox::YES_NO))->setSelectionAction([&](s8 selection) {
+      (new MessageBox(EditorConfigParser::g_betaTitles[Title::g_currTitle->getTitleID()] ? "要套用這些變更嗎？\n 這份設定檔還在測試階段，\n 請先確認存檔已有可用的備份！" :"要套用這些變更嗎？", MessageBox::YES_NO))->setSelectionAction([&](s8 selection) {
         if (selection) {
           std::vector<u8> buffer;
 
           m_interpreter->getModifiedSaveFile(buffer);
 
           if(buffer.empty())
-            (new Snackbar("Injection of modified values failed!"))->show();
+            (new Snackbar("寫入修改的數值失敗！"))->show();
           else {
             if(!storeSaveFile(&buffer[0], buffer.size(), Title::g_currTitle->getTitleID(), Account::g_currAccount->getUserID(), GuiEditor::g_currSaveFileName.c_str()))
-              (new Snackbar("Successfully injected modified values!"))->show();
+              (new Snackbar("已寫入修改的數值！"))->show();
             else
-              (new Snackbar("Injection of modified values failed!"))->show();
+              (new Snackbar("寫入修改的數值失敗！"))->show();
           }
 
           m_interpreter->deinitialize();

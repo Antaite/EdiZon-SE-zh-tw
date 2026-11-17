@@ -85,9 +85,9 @@ void GuiMain::draw() {
     Config::readConfig();
     if ((Config::getConfig()->lasttitle) != 0) lastgamenotfound = true;
     if (lastgamenotfound)
-      Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "Game save for last game title not found on this system! Please press \uE0E1 to exit EdiZon!", ALIGNED_CENTER);
+      Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "這台主機上找不到上次遊戲的存檔！請按 \uE0E1 離開 EdiZon！", ALIGNED_CENTER);
     else
-      Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "No games or saves found on this system! Please press \uE0E1 to exit EdiZon!", ALIGNED_CENTER);
+      Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "這台主機上找不到任何遊戲或存檔！請按 \uE0E1 離開 EdiZon！", ALIGNED_CENTER);
     Gui::endDraw();
     Config::getConfig()->lasttitle = 0;
     Config::writeConfig();
@@ -147,7 +147,7 @@ void GuiMain::draw() {
   Gui::drawRectangled(Gui::g_framebuffer_width - 75, 8, 13, 18, currTheme.separatorColor);
 
   if (tmpEditableOnly && EditorConfigParser::g_editableTitles.size() == 0) {
-    Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "No editable games found on this system!", ALIGNED_CENTER);
+    Gui::drawTextAligned(font24, (Gui::g_framebuffer_width / 2), (Gui::g_framebuffer_height / 2), currTheme.textColor, "這台主機上沒有可編輯的遊戲！", ALIGNED_CENTER);
     Gui::endDraw();
     return;
   }
@@ -183,17 +183,17 @@ void GuiMain::draw() {
     Gui::drawRectangle((u32)((Gui::g_framebuffer_width - 1220) / 2), Gui::g_framebuffer_height - 73, 1220, 1, currTheme.textColor);
 
     if (m_selected.extraOption == 0)
-      Gui::drawTextAligned(font14, 490, 623, currTheme.tooltipTextColor, "Cheats", ALIGNED_CENTER);
+      Gui::drawTextAligned(font14, 490, 623, currTheme.tooltipTextColor, "金手指", ALIGNED_CENTER);
     else if (m_selected.extraOption == 1)
-      Gui::drawTextAligned(font14, 640, 623, currTheme.tooltipTextColor, "Guide", ALIGNED_CENTER);
+      Gui::drawTextAligned(font14, 640, 623, currTheme.tooltipTextColor, "教學", ALIGNED_CENTER);
     else if (m_selected.extraOption == 2)
-      Gui::drawTextAligned(font14, 790, 623, currTheme.tooltipTextColor, "About", ALIGNED_CENTER);
+      Gui::drawTextAligned(font14, 790, 623, currTheme.tooltipTextColor, "關於", ALIGNED_CENTER);
 
     std::string buttonHintStr = "";
 
-    buttonHintStr  = !tmpEditableOnly ? "\uE0E4 Config     \uE0E6 Editable titles     " : "\uE0E6 All titles     ";
-    buttonHintStr += m_backupAll ? "(\uE0E7) + \uE0E2 Backup all     " : "(\uE0E7) + \uE0E2 Backup     ";
-    buttonHintStr += "\uE0E1 Back     \uE0E0 OK";
+    buttonHintStr  = !tmpEditableOnly ? "\uE0E4 設定     \uE0E6 可編輯的遊戲     " : "\uE0E6 所有遊戲     ";
+    buttonHintStr += m_backupAll ? "(\uE0E7) + \uE0E2 全部備份     " : "(\uE0E7) + \uE0E2 備份     ";
+    buttonHintStr += "\uE0E1 返回     \uE0E0 確定";
 
     Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 50, currTheme.textColor, buttonHintStr.c_str(), ALIGNED_RIGHT);
 
@@ -254,7 +254,7 @@ void GuiMain::onInput(u32 kdown) {
 
     if (kdown & KEY_A) {
       if (m_selected.titleId == Title::g_activeTitle) {
-        (new Snackbar("The save files of a running game cannot be accessed."))->show();
+        (new Snackbar("執行中遊戲的存檔無法存取。"))->show();
         return;
       }
       AccountUid userID = Gui::requestPlayerSelection();
@@ -267,7 +267,7 @@ void GuiMain::onInput(u32 kdown) {
         Title::g_currTitle = Title::g_titles[m_selected.titleId];
         Account::g_currAccount = Account::g_accounts[userID];
         Gui::g_nextGui = GUI_EDITOR;
-      } else (new Snackbar("No save file for this user available!"))->show();
+      } else (new Snackbar("這個使用者沒有存檔！"))->show();
     }
 
     if (kdown & (KEY_UP | KEY_DOWN | KEY_LEFT | KEY_RIGHT)) {
@@ -282,12 +282,12 @@ void GuiMain::onInput(u32 kdown) {
 
     if (kdown & KEY_X) {
       if (m_selected.titleId == Title::g_activeTitle) {
-        (new Snackbar("The save files of a running game cannot be accessed."))->show();
+        (new Snackbar("執行中遊戲的存檔無法存取。"))->show();
         return;
       }
 
       if (m_backupAll) {
-        (new MessageBox("Are you sure you want to backup all saves \n on this console? \n This might take a while.", MessageBox::YES_NO))->setSelectionAction([&](s8 selection) {
+        (new MessageBox("確定要備份這台主機上\n 所有的存檔嗎？\n 可能需要一些時間。", MessageBox::YES_NO))->setSelectionAction([&](s8 selection) {
           bool batchFailed = false;
 
           char backupName[65];
@@ -296,10 +296,10 @@ void GuiMain::onInput(u32 kdown) {
           initialText << std::put_time(std::gmtime(&t), "%Y%m%d_%H%M%S");        
 
           if (selection) {
-            if(!Gui::requestKeyboardInput("Backup name", "Please enter a name for the backup to be saved under.", initialText.str(), SwkbdType_QWERTY, backupName, 32))
+            if(!Gui::requestKeyboardInput("備份名稱", "請輸入這份備份的名稱。", initialText.str(), SwkbdType_QWERTY, backupName, 32))
               return;
 
-            (new MessageBox("Creating batch backup. \n \n This might take a while...", MessageBox::NONE))->show();
+            (new MessageBox("正在批次備份。\n \n 可能需要一些時間…", MessageBox::NONE))->show();
             requestDraw();
 
             s16 res;
@@ -316,10 +316,10 @@ void GuiMain::onInput(u32 kdown) {
               Gui::g_currMessageBox->hide();
 
               if (!batchFailed)
-                (new Snackbar("Successfully created backups!"))->show();
+                (new Snackbar("備份完成！"))->show();
               else {
                 std::stringstream errorMessage;
-                errorMessage << "Failed to backup " << failed_titles << " titles!";
+                errorMessage << "無法備份 " << failed_titles << " 個遊戲！";
                 (new Snackbar(errorMessage.str()))->show();
               }
             }
@@ -337,7 +337,7 @@ void GuiMain::onInput(u32 kdown) {
         std::stringstream initialText;
         initialText << std::put_time(std::gmtime(&t), "%Y%m%d_%H%M%S");
 
-        if (!Gui::requestKeyboardInput("Backup name", "Please enter a name for the backup to be saved under.", initialText.str(), SwkbdType_QWERTY, backupName, 32))
+        if (!Gui::requestKeyboardInput("備份名稱", "請輸入這份備份的名稱。", initialText.str(), SwkbdType_QWERTY, backupName, 32))
           return;
 
         for (AccountUid userID : Title::g_titles[m_selected.titleId]->getUserIDs()) {
@@ -347,12 +347,12 @@ void GuiMain::onInput(u32 kdown) {
         }
 
         if (!batchFailed)
-          (new Snackbar("Successfully created backup!"))->show();
+          (new Snackbar("備份完成！"))->show();
         else {
           switch(res) {
-            case 1: (new Snackbar("Failed to mount save file!"))->show(); break;
-            case 2: (new Snackbar("A backup with this name already exists!"))->show(); break;
-            case 3: (new Snackbar("Failed to create backup!"))->show(); break;
+            case 1: (new Snackbar("無法掛載存檔！"))->show(); break;
+            case 2: (new Snackbar("已經有同名的備份！"))->show(); break;
+            case 3: (new Snackbar("備份失敗！"))->show(); break;
           }
         }      
       }
@@ -410,7 +410,7 @@ void GuiMain::onTouch(touchPosition &touch) {
       
       if (m_selected.titleIndex == title) {
         if (m_selected.titleId == Title::g_activeTitle) {
-          (new Snackbar("The save files of a running game cannot be accessed."))->show();
+          (new Snackbar("執行中遊戲的存檔無法存取。"))->show();
           return;
         }
 
@@ -426,7 +426,7 @@ void GuiMain::onTouch(touchPosition &touch) {
           Title::g_currTitle = Title::g_titles[m_selected.titleId];
           Account::g_currAccount = Account::g_accounts[userID];
           Gui::g_nextGui = GUI_EDITOR;
-        } else (new Snackbar("No save file available for this user!"))->show();      
+        } else (new Snackbar("這個使用者沒有可用的存檔！"))->show();      
       }
 
       m_selected.titleIndex = title;

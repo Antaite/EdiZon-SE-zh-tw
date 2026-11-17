@@ -1,8 +1,6 @@
-To create a single backup of a game's save data, select the game you want to backup 
-the save files for in the EdiZon main menu and select the user the save belongs to. In the newly 
-opened interface, press the (X) button to create a backup. The keyboard will pop up where you can 
-enter a custom name for the backup folder. By default the current date and time will be used. 
-Afterwards you'll have the choice to upload the save file to anonfile.com in which case you'll 
-receive a console-unique key that can be entered on https://edizon.werwolv.net to access all files. 
-The save file will get stored in /switch/EdiZon/saves/<titleID> in both cases. 
- 
+要備份單一遊戲的存檔，在 EdiZon 主選單選擇該遊戲，
+再選擇存檔所屬的使用者。在開啟的畫面按 (X) 建立備份，
+接著會跳出鍵盤讓你輸入備份資料夾名稱，預設是目前的日期和時間。
+之後可以選擇是否上傳到 anonfile.com，上傳後會得到一組主機專屬的代碼，
+可以在 https://edizon.werwolv.net 輸入代碼取得所有檔案。
+不論是否上傳，存檔都會存在 /switch/EdiZon/saves/<titleID>。

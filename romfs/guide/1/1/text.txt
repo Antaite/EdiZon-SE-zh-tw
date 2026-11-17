@@ -1,19 +1,19 @@
-This fork is based on the foundation of EdiZon 3.1 nightly. The changes made are on the game memory hack aspect.
+這個分支以 EdiZon 3.1 nightly 為基礎，主要強化遊戲記憶體修改的功能。
 
-Here are the added features:
-  Range search.
-  Compare with previous value search.
-  Bookmark memory location found.
-  Speed enhancement to make small integer value in first search practicle.
-  Bookmark adjust to changing main and heap start address on subsequent launch of the game. 
-  Bookmark with pointer chain attached updates memory address dynamically when the chain is able to resolve into a valid memory address.
-  Extract memory address from dmnt cheat code and add it to bookmark for exploration of the memory location.
-  Rebase feature to extract potential pointer chain form dmnt cheat code made for previous version of the game.
-  In app pointer chain search for address on bookmark.
-  Export dump to PC app (forked from pointersearcher 0.4) for more powerful pointer chain search.
-  Import PC app search result for validation and testing.
-  Create dmnt cheat code from pointer chain found.
-  Ability to detach dmnt from game process.
-  Adding/Removing conditional button to cheat code.
+新增的功能：
+  範圍搜尋。
+  和上次數值比較的搜尋。
+  把找到的記憶體位置加入書籤。
+  加快搜尋速度，讓第一次搜尋小整數也實用。
+  遊戲重新啟動後，書籤會自動跟著主程式區和堆積區的起始位址調整。
+  附有指標鏈的書籤，在指標鏈能解析出有效位址時會自動更新位址。
+  從 dmnt 金手指代碼取出記憶體位址並加入書籤，方便查看該位置。
+  重新定位功能：從舊版遊戲的金手指代碼取出可能的指標鏈。
+  在程式內對書籤位址做指標鏈搜尋。
+  匯出傾印檔給電腦版程式（分支自 pointersearcher 0.4），做更強大的指標鏈搜尋。
+  匯入電腦版的搜尋結果來驗證與測試。
+  用找到的指標鏈建立 dmnt 金手指代碼。
+  可以讓 dmnt 從遊戲中斷連接。
+  替金手指代碼加入或移除觸發按鍵。
 
-Please refer to https://github.com/tomvita/EdiZon-SE/wiki for instructions on how to use the app.
+使用說明請參考 https://github.com/tomvita/EdiZon-SE/wiki

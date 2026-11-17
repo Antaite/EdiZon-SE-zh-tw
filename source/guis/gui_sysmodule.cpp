@@ -122,7 +122,7 @@ GuiSysmodule::GuiSysmodule() : Gui() {
 
    new Button2(100 + xOffset, 250 + yOffset, 500, 80, [&](Gui *gui, u16 x, u16 y, bool *isActivated){
       gui->drawTextAligned(font20, x + 37, y + 23, currTheme.textColor, sysmodule.second.name.c_str(), ALIGNED_LEFT);
-      gui->drawTextAligned(font20, x + 420, y + 23, this->m_runningSysmodules.find(sysmodule.first) != this->m_runningSysmodules.end() ? currTheme.selectedColor : Gui::makeColor(0xB8, 0xBB, 0xC2, 0xFF), this->m_runningSysmodules.find(sysmodule.first) != this->m_runningSysmodules.end() ? "On" : "Off", ALIGNED_LEFT);
+      gui->drawTextAligned(font20, x + 420, y + 23, this->m_runningSysmodules.find(sysmodule.first) != this->m_runningSysmodules.end() ? currTheme.selectedColor : Gui::makeColor(0xB8, 0xBB, 0xC2, 0xFF), this->m_runningSysmodules.find(sysmodule.first) != this->m_runningSysmodules.end() ? "On" : "關閉", ALIGNED_LEFT);
     }, [&](u32 kdown, bool *isActivated){
       if (kdown & KEY_A) {
         u64 pid;
@@ -137,14 +137,14 @@ GuiSysmodule::GuiSysmodule() : Gui() {
           if (!sysmodule.second.requiresReboot) {
             pmshellTerminateProgram(tid);
           } else {
-            (new MessageBox("This sysmodule requires a reboot to fully work. \n Please restart your console in order use it.", MessageBox::OKAY))->show();
+            (new MessageBox("這個系統模組需要重新開機才能完全生效。\n 請重新啟動主機後再使用。", MessageBox::OKAY))->show();
           }
 
           remove(path.str().c_str());
         }
         else {
           if (sysmodule.second.requiresReboot) {
-            (new MessageBox("This sysmodule requires a reboot to fully work. \n Please restart your console in order use it.", MessageBox::OKAY))->show();
+            (new MessageBox("這個系統模組需要重新開機才能完全生效。\n 請重新啟動主機後再使用。", MessageBox::OKAY))->show();
             FILE *fptr = fopen(path.str().c_str(), "wb+");
             if (fptr != nullptr) fclose(fptr);
           } else {
@@ -212,13 +212,13 @@ void GuiSysmodule::draw() {
   Gui::drawRectangle(0, 0, Gui::g_framebuffer_width, Gui::g_framebuffer_height, currTheme.backgroundColor);
   Gui::drawRectangle((u32)((Gui::g_framebuffer_width - 1220) / 2), 87, 1220, 1, currTheme.textColor);
   Gui::drawRectangle((u32)((Gui::g_framebuffer_width - 1220) / 2), Gui::g_framebuffer_height - 73, 1220, 1, currTheme.textColor);
-  Gui::drawTextAligned(font24, Gui::g_framebuffer_width / 2, 20, currTheme.textColor, "\uE130    Sysmodule manager", ALIGNED_CENTER);
+  Gui::drawTextAligned(font24, Gui::g_framebuffer_width / 2, 20, currTheme.textColor, "\uE130    系統模組管理", ALIGNED_CENTER);
   // Gui::drawTextAligned(font24, 70, 58, currTheme.textColor, "        Hekate Toolbox", ALIGNED_LEFT);
 
   // if (hidMitmInstalled())
   //   Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 25, currTheme.textColor, "\uE0E2 Key configuration     \uE0E1 Back     \uE0E0 OK", ALIGNED_RIGHT);
   // else
-  // Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 51, currTheme.textColor, "\uE0E1 Back     \uE0E0 OK", ALIGNED_RIGHT);
+  // Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 51, currTheme.textColor, "\uE0E1 返回     \uE0E0 確定", ALIGNED_RIGHT);
   {
     // FILE *exefs = fopen(std::string(CONTENTS_PATH "0100000000001013/exefs.nsp").c_str(), "r");
     // if ((exefs == nullptr) && (access(CONTENTS_PATH "0100000000001013/exefs.nsp1", F_OK) == 0))
@@ -227,14 +227,14 @@ void GuiSysmodule::draw() {
     //   Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 400, Gui::g_framebuffer_height - 51, currTheme.textColor, "\uE0E3 Make profile launch profile", ALIGNED_RIGHT);
     //   fclose(exefs);
     // }
-    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 51, currTheme.textColor, "Make Profile launch  \uE0E2 EdiZon SE  \uE0E3 Profile  \uE0E4 Breeze", ALIGNED_RIGHT);
+    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 51, currTheme.textColor, "設定從使用者選單啟動  \uE0E2 EdiZon SE  \uE0E3 使用者選單  \uE0E4 Breeze", ALIGNED_RIGHT);
     if (!(access("/atmosphere/config/system_settings.ini", F_OK) == 0))
-      Gui::drawTextAligned(font20, 50, Gui::g_framebuffer_height - 51, currTheme.textColor, "\uE0F0 Create system_settings.ini", ALIGNED_LEFT);
+      Gui::drawTextAligned(font20, 50, Gui::g_framebuffer_height - 51, currTheme.textColor, "\uE0F0 建立 system_settings.ini", ALIGNED_LEFT);
   }
   if (anyModulesPresent)
-    Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 100, currTheme.textColor, "Enable as little background services (sysmodules) as possible for maximum compatibility with \n games. If you encounter problem try disable all of them to see if it helps to improve stability. \n Do not enable tesla if you are on HOS11+ when running Edizon SE.", ALIGNED_CENTER);
+    Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 100, currTheme.textColor, "背景服務（系統模組）開得越少，遊戲相容性越好。\n 遇到問題時，可以先全部關閉，看看穩定性有沒有改善。\n 系統 11 以上執行 EdiZon SE 時，請不要啟用 Tesla 插件選單。", ALIGNED_CENTER);
   else
-    Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 550, currTheme.textColor, "You currently don't have any supported sysmodules installed. To use this \n feature, please install any supported sysmodule as an NSP.", ALIGNED_CENTER);
+    Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 550, currTheme.textColor, "目前沒有安裝任何支援的系統模組。要使用這個功能，\n 請先安裝支援的系統模組。", ALIGNED_CENTER);
     
 
   for(Button2 *btn : Button2::g_buttons)
@@ -268,7 +268,7 @@ void GuiSysmodule::onInput(u32 kdown) {
     // {
     // }
     inst::zip::extractFile("sdmc:/switch/edizon/profile.zip", "sdmc:/");
-    (new Snackbar("Profile set to launch EdiZon SE"))->show();
+    (new Snackbar("已設定從使用者選單啟動 EdiZon SE"))->show();
   }
   else if ((kdown & KEY_Y) && (access(CONTENTS_PATH "0100000000001013/exefs.nsp", F_OK) == 0))
   {
@@ -279,12 +279,12 @@ void GuiSysmodule::onInput(u32 kdown) {
     catch (json::parse_error &e)
     {
     }
-    (new Snackbar("Profile set to launch Profile"))->show();
+    (new Snackbar("已設定使用者選單維持原本功能"))->show();
   }
   else if ((kdown & KEY_L) && (access("sdmc:/switch/breeze/profile.zip", F_OK) == 0))
   {
     inst::zip::extractFile("sdmc:/switch/breeze/profile.zip", "sdmc:/");
-    (new Snackbar("Profile set to launch Breeze"))->show();
+    (new Snackbar("已設定從使用者選單啟動 Breeze"))->show();
   }
   else if ((kdown & KEY_MINUS) && (!(access("/atmosphere/config/system_settings.ini", F_OK) == 0)))
   {

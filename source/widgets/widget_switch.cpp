@@ -18,11 +18,11 @@ WidgetSwitch::~WidgetSwitch() {
 void WidgetSwitch::draw(Gui *gui, u16 x, u16 y) {
   if (m_widgetDataType == INT) {
     s64 intValue = Widget::getIntegerValue();
-    gui->drawTextAligned(font20, x + WIDGET_WIDTH - 140, y + (WIDGET_HEIGHT / 2.0F), intValue == m_intOnValue ? currTheme.selectedColor : currTheme.separatorColor, intValue == m_intOnValue ? "ON" : "OFF", ALIGNED_RIGHT);
+    gui->drawTextAligned(font20, x + WIDGET_WIDTH - 140, y + (WIDGET_HEIGHT / 2.0F), intValue == m_intOnValue ? currTheme.selectedColor : currTheme.separatorColor, intValue == m_intOnValue ? "ON" : "關", ALIGNED_RIGHT);
   }
   else if (m_widgetDataType == STRING) {
     std::string strValue = Widget::getStringValue();
-    gui->drawTextAligned(font20, x + WIDGET_WIDTH - 140, y + (WIDGET_HEIGHT / 2.0F), strValue == m_strOnValue ? currTheme.selectedColor : currTheme.separatorColor, strValue == m_strOnValue ? "ON" : "OFF", ALIGNED_RIGHT);
+    gui->drawTextAligned(font20, x + WIDGET_WIDTH - 140, y + (WIDGET_HEIGHT / 2.0F), strValue == m_strOnValue ? currTheme.selectedColor : currTheme.separatorColor, strValue == m_strOnValue ? "ON" : "關", ALIGNED_RIGHT);
   }
 }
 

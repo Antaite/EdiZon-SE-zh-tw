@@ -1,11 +1,7 @@
-There are two different types of multi-save backups. 
+多重備份有兩種。
 
-The first one will create a backup containing all save files of all users for one specific 
-game. To do this hover over a game's icon in EdiZon's main menu and press the (X) button. 
-The keyboard will pop up asking you for a name for the backup. After entering the save files 
-will get copied to /switch/EdiZon/batch. 
- 
-The second type is called a batch backup. It will create a backup of all save files on the system. 
-This can be done by holding down the (ZR) button while pressing the (X) button in the EdiZon 
-main menu. A warning will pop up and after accepting, the save files will be copied into 
-/switch/EdiZon/batch.
+第一種是備份單一遊戲裡所有使用者的存檔：在主選單把游標移到遊戲圖示上，
+按 (X)，輸入備份名稱後，存檔會複製到 /switch/EdiZon/batch。
+
+第二種是批次備份，會備份主機上所有的存檔：在主選單按住 (ZR) 再按 (X)，
+確認警告訊息後，存檔會複製到 /switch/EdiZon/batch。

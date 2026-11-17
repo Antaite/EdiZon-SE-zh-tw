@@ -1,3 +1,3 @@
-EdiZon has a built-in auto-updater. To use it make sure that the console is connected to the internet
-and then press the (-) button in the main menu. This will download the latest EdiZon version and all
-latest save editor configs and cheats from the database
+EdiZon 內建自動更新。請確認主機已連上網路，
+在主選單按 (-) 按鈕，就會下載最新版的 EdiZon，
+以及資料庫裡最新的存檔編輯設定檔和金手指。

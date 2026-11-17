@@ -1,17 +1,13 @@
-The different kinds of widgets are Numbers, On-Off-Switches, Text, Lists, Buttons and Comments.
- 
-Number values can be changed using the left and right dpad buttons. To enter a value using the
-keyboard, use the (A) button. To increase the step size multiplier, press the right stick button. 
+元件分為數字、開關、文字、清單、按鈕和註解。
 
-On-off-Switches can be either enabled or disabled by selecting them and pressing the (A) button. 
+數字：用十字鍵左右調整；按 (A) 用鍵盤輸入；按右搖桿可以增加調整倍率。
 
-Text values allow you to enter your own text using the keyboard. Press the (A) button to open it. 
+開關：選擇後按 (A) 切換開啟或關閉。
 
-Lists allow you to choose from a preselected list of values to set the value to. Press the (A) button
-to open the list and press the (A) button again to confirm your choice. 
+文字：按 (A) 開啟鍵盤輸入自己的文字。
 
-Buttons allow for custom one-time options to be executed. Be aware that these are often not resetable.
-Press the (A) button to execute the underlying command. 
+清單：按 (A) 開啟清單，從預設的選項中挑選，再按一次 (A) 確認。
 
-Comments are there just to help you. When pressing the (A) button, the entire text will be displayed
-in a popup window.
+按鈕：執行自訂的一次性操作，通常無法復原，按 (A) 執行。
+
+註解：只是輔助說明，按 (A) 會在彈出視窗顯示完整內容。

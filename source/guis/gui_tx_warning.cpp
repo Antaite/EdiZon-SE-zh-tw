@@ -22,7 +22,7 @@ void GuiTXWarning::draw() {
 
   Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, Gui::g_framebuffer_height / 2, COLOR_WHITE, "EdiZon detected that you're running the 'SX OS' CFW. Please note that this CFW has erroneously\n implemented services that can cause unexpected failures, corruption of save data\n or backups, the editor failing to load save files or configs, RAM editing not being\n supported and other issues. For the safety of your Switch, use a free open\n source CFW instead. \n To continue anyway press \uE0E0, otherwise press \uE0E1 to exit.", ALIGNED_CENTER);
 
-  Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, Gui::g_framebuffer_height / 2 + 250, COLOR_WHITE, "\uE070  Don't show this warning anymore", ALIGNED_CENTER);
+  Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, Gui::g_framebuffer_height / 2 + 250, COLOR_WHITE, "\uE070  不再顯示這個警告", ALIGNED_CENTER);
 
   if (!Config::getConfig()->hideSX)
     Gui::drawRectangle(Gui::g_framebuffer_width / 2 - 228, Gui::g_framebuffer_height / 2 + 258, 14, 16, Gui::makeColor(0xC5, 0x39, 0x29, 0xFF));

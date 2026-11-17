@@ -49,17 +49,17 @@ void Guicheatdb::draw() {
   Gui::drawRectangle((u32)((Gui::g_framebuffer_width - 1220) / 2), 87, 1220, 1, currTheme.textColor);
   Gui::drawRectangle((u32)((Gui::g_framebuffer_width - 1220) / 2), Gui::g_framebuffer_height - 73, 1220, 1, currTheme.textColor);
   Gui::drawTextAligned(fontTitle, 70, 60, currTheme.textColor, "\uE133", ALIGNED_LEFT);
-  Gui::drawTextAligned(font24, 70, 23, currTheme.textColor, "        Cheat database updater", ALIGNED_LEFT);
+  Gui::drawTextAligned(font24, 70, 23, currTheme.textColor, "        金手指資料庫更新", ALIGNED_LEFT);
 
   if (updateAvailable)
-    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 51, currTheme.textColor, "\uE0F0 Install update     \uE0E1 Exit     \uE0E0 OK", ALIGNED_RIGHT);
+    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 51, currTheme.textColor, "\uE0F0 安裝更新     \uE0E1 離開     \uE0E0 確定", ALIGNED_RIGHT);
   else
-    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 51, currTheme.textColor, "\uE0E1 Exit     \uE0E0 OK", ALIGNED_RIGHT);
+    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 51, currTheme.textColor, "\uE0E1 離開     \uE0E0 確定", ALIGNED_RIGHT);
 
   // Gui::drawTextAligned(font24, 100, 180, Gui::makeColor(0xFB, 0xA6, 0x15, 0xFF), "EdiZon SE v" VERSION_STRING, ALIGNED_LEFT);
-  // Gui::drawTextAligned(font20, 130, 190, currTheme.separatorColor, "by Tomvita", ALIGNED_LEFT);
+  // Gui::drawTextAligned(font20, 130, 190, currTheme.separatorColor, "作者：Tomvita", ALIGNED_LEFT);
 
-  Gui::drawTextAligned(font14, 120, 250, currTheme.textColor, "Special thank to everyone who has contributed at Gbatemp Switch cheat code forum.", ALIGNED_LEFT);
+  Gui::drawTextAligned(font14, 120, 250, currTheme.textColor, "特別感謝所有在 GBAtemp Switch 金手指論壇貢獻的人。", ALIGNED_LEFT);
   // Gui::drawTextAligned(font14, 120, 270, currTheme.textColor, "Especially to all the config/cheat developers that brought this project to life!", ALIGNED_LEFT);
 
   // Gui::drawTextAligned(font14, 900, 250, Gui::makeColor(0x51, 0x97, 0xF0, 0xFF), "Twitter: https://twitter.com/WerWolv", ALIGNED_LEFT);
@@ -71,11 +71,11 @@ void Guicheatdb::draw() {
   Gui::drawShadow(52, 352, Gui::g_framebuffer_width - 104, 248);
 
   if (updateAvailable)
-    Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 565, currTheme.backgroundColor, "A update for Cheat database is available!", ALIGNED_CENTER);
+    Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 565, currTheme.backgroundColor, "金手指資料庫有新版本！", ALIGNED_CENTER);
 
-  Gui::drawTextAligned(font20, 60, 360, currTheme.selectedColor, "Cheat database Update", ALIGNED_LEFT);
+  Gui::drawTextAligned(font20, 60, 360, currTheme.selectedColor, "金手指資料庫更新", ALIGNED_LEFT);
 
-  Gui::drawTextAligned(font14, 80, 400, currTheme.textColor, std::string("Latest cheat database version: " + (remoteVersion == "" ? "..." : remoteVersion)).c_str(), ALIGNED_LEFT);
+  Gui::drawTextAligned(font14, 80, 400, currTheme.textColor, std::string("金手指資料庫最新版本：" + (remoteVersion == "" ? "..." : remoteVersion)).c_str(), ALIGNED_LEFT);
   // Gui::drawTextAligned(font14, 80, 425, currTheme.textColor, std::string("Latest database commit: [ " + (remoteCommitSha == "" ? "..." : remoteCommitSha) + " ] ").c_str(), ALIGNED_LEFT);
   // Gui::drawTextAligned(font14, 90, 450, currTheme.separatorColor, (remoteCommitMessage == "" ? "..." : remoteCommitMessage.c_str()), ALIGNED_LEFT);
 
@@ -104,7 +104,7 @@ void Guicheatdb::onInput(u32 kdown) {
   if (kdown & KEY_MINUS && updateAvailable)  {
 
     mkdir(CHEATS_DIR, 0777);
-    (new MessageBox("Updating cheat database.\n \nThis may take a while...", MessageBox::NONE))->show();
+    (new MessageBox("正在更新金手指資料庫。\n \n可能需要一些時間…", MessageBox::NONE))->show();
     requestDraw();
     CURL *curl = curl_easy_init();
     struct curl_slist *headers = NULL;
@@ -124,7 +124,7 @@ void Guicheatdb::onInput(u32 kdown) {
       fclose(fp);
       curl_easy_cleanup(curl);
       printf("remove(APP_OUTPUT) = %d\n", remove(APP_OUTPUT));
-      (new MessageBox("Updated cheat code database\n\n Enjoy!", MessageBox::OKAY))->show();
+      (new MessageBox("金手指資料庫已更新\n\n 祝你玩得開心！", MessageBox::OKAY))->show();
       printf("rename(TEMP_FILE, APP_OUTPUT) = %d\n", rename(TEMP_FILE, APP_OUTPUT));
       updateAvailable = false;
       for (int i=0;i<6;i++)
@@ -133,7 +133,7 @@ void Guicheatdb::onInput(u32 kdown) {
     }
     else
     {
-      (new MessageBox("Not able to updated cheat database\n Please try again later!", MessageBox::OKAY))->show();
+      (new MessageBox("無法更新金手指資料庫\n 請稍後再試！", MessageBox::OKAY))->show();
       fclose(fp);
       curl_easy_cleanup(curl);
     }

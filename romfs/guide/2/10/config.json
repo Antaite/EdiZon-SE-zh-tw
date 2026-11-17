@@ -1,12 +1,11 @@
 {
-	"images" : [
-	],
-	"text" : [
+	"images": [],
+	"text": [
 		{
-			"title" : "Value types",
-			"path" : "text.txt",
-			"x" : 50,
-			"y" : 100
+			"title": "數值類型",
+			"path": "text.txt",
+			"x": 50,
+			"y": 100
 		}
 	]
 }

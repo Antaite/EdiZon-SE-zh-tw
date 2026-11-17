@@ -1,18 +1,17 @@
 {
-	"images" : [
-	],
-	"text" : [
+	"images": [],
+	"text": [
 		{
-			"title" : "Built-in updater",
-			"path" : "auto_updater.txt",
-			"x" : 50,
-			"y" : 100
+			"title": "內建更新",
+			"path": "auto_updater.txt",
+			"x": 50,
+			"y": 100
 		},
 		{
-			"title" : "Debug logging",
-			"path" : "debug_logs.txt",
-			"x" : 50,
-			"y" : 300
+			"title": "除錯紀錄",
+			"path": "debug_logs.txt",
+			"x": 50,
+			"y": 300
 		}
 	]
 }

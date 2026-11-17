@@ -1,12 +1,11 @@
 {
-	"images" : [
-	],
-	"text" : [
+	"images": [],
+	"text": [
 		{
-			"title" : "How to create a multi-save backup?",
-			"path" : "text.txt",
-			"x" : 50,
-			"y" : 100
+			"title": "如何一次備份多個存檔？",
+			"path": "text.txt",
+			"x": 50,
+			"y": 100
 		}
 	]
 }

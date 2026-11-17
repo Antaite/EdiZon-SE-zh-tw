@@ -1,12 +1,11 @@
 {
-	"images" : [
-	],
-	"text" : [
+	"images": [],
+	"text": [
 		{
-			"title" : "How do I edit my save files?",
-			"path" : "text.txt",
-			"x" : 50,
-			"y" : 100
+			"title": "如何編輯存檔？",
+			"path": "text.txt",
+			"x": 50,
+			"y": 100
 		}
 	]
 }
