@@ -11,19 +11,15 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: devkitpro/devkita64:latest
+    # EdiZon SE 使用 libnx 4 之前的觸控與按鍵 API，所以固定用 2020 年 7 月的編譯環境（libnx 3.x）
+    container: devkitpro/devkita64:20200730
     steps:
       - uses: actions/checkout@v4
 
-      - name: 安裝需要的函式庫
+      - name: 檢查編譯環境
         run: |
-          dkp-pacman -Syu --noconfirm --needed switch-freetype switch-curl switch-mbedtls switch-zlib switch-bzip2 switch-libpng switch-pkg-config || true
-          ls /opt/devkitpro/portlibs/switch/bin || true
-
-      - name: 安裝舊版 libnx 3.3.0（EdiZon SE 使用舊的觸控與按鍵 API，libnx 4 以後已移除）
-        run: |
-          git clone --depth 1 --branch v3.3.0 https://github.com/switchbrew/libnx.git /tmp/libnx
-          make -C /tmp/libnx -j"$(nproc)" install
+          grep -m3 "LIBNX_M\|LIBNX_P" /opt/devkitpro/libnx/include/switch.h /opt/devkitpro/libnx/*.mk 2>/dev/null || true
+          ls /opt/devkitpro/portlibs/switch/lib | head -50
 
       - name: 編譯
         run: |
