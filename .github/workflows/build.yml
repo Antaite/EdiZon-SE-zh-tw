@@ -1,0 +1,36 @@
+# 自動編譯：用 devkitA64 編譯 EdiZon SE 繁中版，並發佈測試版方便下載
+name: 編譯
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: devkitpro/devkita64:latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安裝需要的函式庫
+        run: |
+          dkp-pacman -Syu --noconfirm --needed switch-freetype switch-curl switch-mbedtls switch-zlib switch-bzip2 switch-libpng switch-pkg-config || true
+          ls /opt/devkitpro/portlibs/switch/bin || true
+
+      - name: 編譯
+        run: |
+          export PATH=/opt/devkitpro/portlibs/switch/bin:$PATH
+          make -j"$(nproc)"
+          ls -la *.nro
+
+      - name: 發佈測試版
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: 測試版 ${{ github.run_number }}
+          prerelease: true
+          files: |
+            *.nro
