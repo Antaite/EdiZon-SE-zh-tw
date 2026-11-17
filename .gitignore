@@ -8,3 +8,4 @@ EdiZon.lst
 .vscode/configurationCache.log
 .vscode/dryrun.log
 .vscode/targets.log
+__pycache__/
